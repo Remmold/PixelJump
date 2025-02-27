@@ -14,7 +14,7 @@ public class GameSession : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     AudioSource audioSource;
     // Realise this shouldnt be public but just testing some stuff with audio and playermovement
-    public float speedMultiplier = 1f;
+    public float speedMultiplier = 0.95f;
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -64,6 +64,12 @@ public class GameSession : MonoBehaviour
         {
             
         }
+    }
+    public void ChangeSpeedMultiplier(float amount)
+    {
+        speedMultiplier *= amount;
+        audioSource.pitch *= speedMultiplier;
+        
     }
 
 
