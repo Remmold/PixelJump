@@ -12,9 +12,14 @@ public class GameSession : MonoBehaviour
     [SerializeField] int playerScore;
     [SerializeField] TextMeshProUGUI livesText;
     [SerializeField] TextMeshProUGUI scoreText;
+    AudioSource audioSource;
+    // Realise this shouldnt be public but just testing some stuff with audio and playermovement
+    public float speedMultiplier = 1f;
     void Awake()
     {
-        playerLives =3;
+        audioSource = GetComponent<AudioSource>();
+        playerLives =5;
+        
         int numGameSessions = FindObjectsByType<GameSession>(FindObjectsSortMode.None).Length;
         if(numGameSessions> 1)
         {
@@ -27,13 +32,16 @@ public class GameSession : MonoBehaviour
     }
     void Start()
     {
+
         livesText.text = playerLives.ToString();
-        //scoreText = playerScore.ToString();
+
     }
     public void ProcessPlayerDeath()
     {
         if(playerLives > 1)
-        {
+        { 
+            speedMultiplier *= 0.85f;
+            audioSource.pitch *= speedMultiplier;
             TakeLife();
             livesText.text = playerLives.ToString();
         }
@@ -48,6 +56,7 @@ public class GameSession : MonoBehaviour
         if(playerLives > 1)
         {
             playerLives --;
+            
             StartCoroutine(LoadSameLevel());
 
         }
@@ -63,6 +72,7 @@ public class GameSession : MonoBehaviour
     {
         yield  return new WaitForSecondsRealtime(2);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        FindAnyObjectByType<PlayerMovement>().ChangeMovespeed(speedMultiplier);
     }
 
     private void GameOver()

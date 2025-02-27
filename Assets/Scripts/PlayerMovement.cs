@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]  float runSpeed = 10f;
+    [SerializeField]  float runSpeed = 5f;
     [SerializeField] float jumpSpeed = 5f;
     [SerializeField] Vector2 deathKick = new Vector2 (10f,10f);
     [SerializeField] GameObject bullet;
@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     Animator animator;
     Collider2D myFeetCollider;
     float speedMultiplier = 0.6f;
-    float regularSpeedMultiplier = 0.6f;
+    float regularSpeedMultiplier = 0.5f;
     bool isAlive = true;
     void Start()
     {
@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         startingGravity = myRigidBody.gravityScale;
-        speedMultiplier = regularSpeedMultiplier;
+        speedMultiplier *= FindAnyObjectByType<GameSession>().speedMultiplier;
     }
 
 
@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Run()
     {
-        Vector2 playerVelocity = new Vector2 (moveInput.x * runSpeed*speedMultiplier,myRigidBody.linearVelocity.y);
+        Vector2 playerVelocity = new Vector2 (moveInput.x * (runSpeed*speedMultiplier),myRigidBody.linearVelocity.y);
         myRigidBody.linearVelocity = playerVelocity;
 
         bool playerHasHorizontalSpeed = Mathf.Abs(myRigidBody.linearVelocity.x)> Mathf.Epsilon;
@@ -103,6 +103,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         
+    }
+    public void ChangeMovespeed(float multiplier)
+    {
+        speedMultiplier *= multiplier;
     }
     void Die()
     {
