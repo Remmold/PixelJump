@@ -17,7 +17,7 @@ public class Timeglass : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            FindAnyObjectByType<GameSession>().ChangeSpeedMultiplier(1.05f);
+            FindAnyObjectByType<GameSession>().ChangeSpeedMultiplier(0.05f);
             FindAnyObjectByType<PlayerMovement>().ChangeMovespeed(1.05f);
             Destroy(gameObject);
         }

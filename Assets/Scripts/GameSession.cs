@@ -40,8 +40,8 @@ public class GameSession : MonoBehaviour
     {
         if(playerLives > 1)
         { 
-            speedMultiplier *= 0.85f;
-            audioSource.pitch *= speedMultiplier;
+            speedMultiplier -= 0.05f;
+            audioSource.pitch = speedMultiplier;
             TakeLife();
             livesText.text = playerLives.ToString();
         }
@@ -67,8 +67,8 @@ public class GameSession : MonoBehaviour
     }
     public void ChangeSpeedMultiplier(float amount)
     {
-        speedMultiplier *= amount;
-        audioSource.pitch *= speedMultiplier;
+        speedMultiplier += amount;
+        audioSource.pitch = speedMultiplier;
         
     }
 
@@ -81,10 +81,6 @@ public class GameSession : MonoBehaviour
         FindAnyObjectByType<PlayerMovement>().ChangeMovespeed(speedMultiplier);
     }
 
-    private void GameOver()
-    {
-        throw new NotImplementedException();
-    }
 
     IEnumerator ResetGameSession()
     {
