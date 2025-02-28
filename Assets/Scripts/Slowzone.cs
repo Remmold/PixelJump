@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Timeglass : MonoBehaviour
+public class Slowzone : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,9 +17,8 @@ public class Timeglass : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            FindAnyObjectByType<GameSession>().ChangeSpeedMultiplier(0.05f);
-            FindAnyObjectByType<PlayerMovement>().ChangeMovespeed(0.05f);
-            Destroy(gameObject);
+            FindAnyObjectByType<GameSession>().AlterTime(-0.05f);
+            FindAnyObjectByType<PlayerMovement>().ChangeMovespeed(-0.05f);
         }
     }
 }

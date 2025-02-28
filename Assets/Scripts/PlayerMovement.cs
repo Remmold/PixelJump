@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Xml.Schema;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,8 +20,9 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D myRigidBody;
     Animator animator;
     Collider2D myFeetCollider;
+
     float speedMultiplier = 0.6f;
-    float regularSpeedMultiplier = 0.5f;
+    //float regularSpeedMultiplier = 0.5f;
     bool isAlive = true;
     void Start()
     {
@@ -106,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void ChangeMovespeed(float multiplier)
     {
-        speedMultiplier *= multiplier;
+        speedMultiplier += multiplier;
     }
     void Die()
     {
