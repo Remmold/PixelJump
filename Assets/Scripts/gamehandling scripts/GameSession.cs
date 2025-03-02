@@ -90,7 +90,6 @@ public class GameSession : MonoBehaviour
     {
         yield  return new WaitForSecondsRealtime(2);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        FindAnyObjectByType<PlayerMovement>().ChangeMovespeed(speedMultiplier);
     }
 
 

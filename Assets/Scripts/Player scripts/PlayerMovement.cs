@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Schema;
 using Unity.Collections;
@@ -13,15 +14,15 @@ public class PlayerMovement : MonoBehaviour
     //Actual variables affecting game
     [SerializeField]  float Xspeed ; // The Xspeed
     [SerializeField] float Yspeed; // The Yspeed
-    float climbSpeed = 2f; //Yspeed while climbing
+    float climbSpeed; //Yspeed while climbing
     
     
     //Benchmarks------------------------------------
 
-    const float XSPEEDBASE = 10f; // benchmark for regular Xspeed
-    const float YSPEEDBASE  = 10f; // benchmark for regular Yspeed
-    const float CLIMBSPEEDBASE = 2f; // benchmarks for Yspeed While Climbing
-    const float GRAVITYBASE = 3; // benchmark for regular gravity for the player
+    const float XSPEEDBASE = 6f; // benchmark for regular Xspeed
+    const float YSPEEDBASE  = 9f; // benchmark for regular Yspeed
+    const float CLIMBSPEEDBASE = 4f; // benchmarks for Yspeed While Climbing
+    const float GRAVITYBASE = 2.5f; // benchmark for regular gravity for the player
     const float SPEEDMULTIPLIERBASE = 1f; //Benchmark for regular speed multiplier
     float speedMultiplier; //Multiplier applied to player movementspeed  this is the  thing to alter for temporary boosts to movementspeed
     
@@ -38,14 +39,16 @@ public class PlayerMovement : MonoBehaviour
     #endregion
     #region Colliders Body and Animation
     Collider2D myColliderCapsule ;
-    float myGravity ;
+    Collider2D myColliderFeet;
     Vector2 moveInput;
     Rigidbody2D myRigidBody;
     Animator animator;
-    Collider2D myColliderFeet;
+    #endregion
+    #region Player State Variables
+    bool isAlive = true;
     #endregion
 
-    bool isAlive = true;
+
     void Start()
     {
        
@@ -53,14 +56,21 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         myColliderCapsule = GetComponent<Collider2D>();
         myColliderFeet = GetComponent<BoxCollider2D>();
-        SetMovementSpeed(); //Initialize base movmentspeeds to player object
-
-
-
+        SetMovementParams(); //Initialize base movmentspeeds to player object
+ 
+    }
+    void Update()
+    {
+        if(!isAlive){ return;}//Player is dead
+        
+        Run();
+        FlipSprite();
+        ClimbLadder();
+        TouchDangerCheck();
         
     }
-    //Sets the diffrent movement parameters
-    public void SetMovementSpeed(float x =XSPEEDBASE,float y = YSPEEDBASE,float climb = CLIMBSPEEDBASE,float multiplier = SPEEDMULTIPLIERBASE,float gravity = GRAVITYBASE)
+    //Sets the diffrent movement parameters PERMANENTLY
+    public void SetMovementParams(float x =XSPEEDBASE,float y = YSPEEDBASE,float climb = CLIMBSPEEDBASE,float multiplier = SPEEDMULTIPLIERBASE,float gravity = GRAVITYBASE)
     {
         Xspeed = x;   
         Yspeed = y;
@@ -68,18 +78,39 @@ public class PlayerMovement : MonoBehaviour
         climbSpeed = climb;
         myRigidBody.gravityScale = gravity;
     }
-
-    void Update()
+    /// <summary>
+    /// Sets player movement stats temporarily
+    /// </summary>
+    /// <param name="x = new Xspeed"></param>
+    /// <param name="y = new Yspeed"></param>
+    /// <param name="climb = newClimbspeed"></param>
+    /// <param name="multiplier = new SpeedMultiplier"></param>
+    /// <param name="gravity = New gravity scale"></param>
+    /// <param name="duration = Duration in SECONDS"></param>
+    /// <returns></returns>
+    public IEnumerator TemporaryMovementChange(float x =XSPEEDBASE,float y = YSPEEDBASE,float climb = CLIMBSPEEDBASE,float multiplier = SPEEDMULTIPLIERBASE,float gravity = GRAVITYBASE, float duration = 0)
     {
-        if(!isAlive){ return;}
-        
-        Run();
-        FlipSprite();
-        ClimbLadder();
-        Die();
-        
+        // Store original values
+        float originalX = Xspeed;
+        float originalY = Yspeed;
+        float originalClimb = climbSpeed;
+        float originalMultiplier = speedMultiplier;
+        float originalGravity = myRigidBody.gravityScale;
+
+        // Apply new values
+        SetMovementParams(x, y, climb, multiplier, gravity);
+        Debug.Log("Temporary movement change applied!");
+
+        // Wait for duration
+        yield return new WaitForSecondsRealtime(duration);
+
+        // Revert to original values
+        SetMovementParams(originalX, originalY, originalClimb, originalMultiplier, originalGravity);
+        Debug.Log("Movement reverted to original values.");
     }
 
+
+    #region Input Methods
     void OnMove(InputValue value)
     {
         if(!isAlive){ return;}
@@ -87,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(moveInput);
         
     }
+    //Change this. bullets have no room in my game! :)
     void OnAttack(InputValue value)
     {
         if(value.isPressed)
@@ -95,28 +127,15 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
-    void ClimbLadder()
-    {
-        if(!myColliderCapsule.IsTouchingLayers(LayerMask.GetMask("Climb")))
-        {
-            myRigidBody.gravityScale = myGravity;
-            animator.SetBool("isClimbing",false);
-            return;
-        }
-        Vector2 playerVelocity = new Vector2 (myRigidBody.linearVelocity.x,moveInput.y * climbSpeed * speedMultiplier);
-        myRigidBody.linearVelocity = playerVelocity;
-        bool playerHasVerticalSpeed = Mathf.Abs(myRigidBody.linearVelocity.y)> Mathf.Epsilon;
-        animator.SetBool("isClimbing",true);
-        myRigidBody.gravityScale = 0f;
-        
-    }
+
     void OnJump(InputValue value)
     {
-        if(value.isPressed && myColliderFeet.IsTouchingLayers(LayerMask.GetMask("Ground","Climb")))
+        if(value.isPressed && myColliderFeet.IsTouchingLayers(LayerMask.GetMask("Ground","Climb","Bouncing")))
         {
             myRigidBody.linearVelocity += new Vector2(0f,Yspeed);
         }
     }
+    #endregion
     void Run()
     {
         Vector2 playerVelocity = new Vector2 (moveInput.x * (Xspeed*speedMultiplier),myRigidBody.linearVelocity.y);
@@ -137,11 +156,7 @@ public class PlayerMovement : MonoBehaviour
 
         
     }
-    public void ChangeMovespeed(float multiplier)
-    {
-        speedMultiplier += multiplier;
-    }
-    void Die()
+    void TouchDangerCheck()
     {
         if(myRigidBody.IsTouchingLayers(LayerMask.GetMask("Enemies","Hazards")))
         {
@@ -151,5 +166,21 @@ public class PlayerMovement : MonoBehaviour
             myRigidBody.linearVelocity = deathKick;
             FindAnyObjectByType<GameSession>().ProcessPlayerDeath();
         }
+    }
+    void ClimbLadder()
+    {
+        float regularGravity = myRigidBody.gravityScale;
+        if(!myColliderCapsule.IsTouchingLayers(LayerMask.GetMask("Climb")))
+        {
+            myRigidBody.gravityScale = regularGravity;
+            animator.SetBool("isClimbing",false);
+            return;
+        }
+        Vector2 playerVelocity = new Vector2 (myRigidBody.linearVelocity.x,moveInput.y * climbSpeed * speedMultiplier);
+        myRigidBody.linearVelocity = playerVelocity;
+
+        animator.SetBool("isClimbing",true);
+        myRigidBody.gravityScale = 0f;
+        
     }
 }

@@ -17,8 +17,8 @@ public class Slowzone : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            FindAnyObjectByType<GameSession>().AlterTime(-0.05f);
-            FindAnyObjectByType<PlayerMovement>().ChangeMovespeed(-0.05f);
+            StartCoroutine(FindAnyObjectByType<PlayerMovement>().TemporaryMovementChange(gravity: 0,duration:3));
+            Destroy(gameObject);
         }
     }
 }
