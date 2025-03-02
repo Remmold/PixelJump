@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]  float Xspeed ; // The Xspeed
     [SerializeField] float Yspeed; // The Yspeed
     float climbSpeed; //Yspeed while climbing
+    float regularGravity;
     
     
     //Benchmarks------------------------------------
@@ -56,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         myColliderCapsule = GetComponent<Collider2D>();
         myColliderFeet = GetComponent<BoxCollider2D>();
+        regularGravity = GRAVITYBASE;
         SetMovementParams(); //Initialize base movmentspeeds to player object
  
     }
@@ -64,9 +66,9 @@ public class PlayerMovement : MonoBehaviour
         if(!isAlive){ return;}//Player is dead
         
         Run();
-        FlipSprite();
-        ClimbLadder();
-        TouchDangerCheck();
+        FlipSprite(); //Checks direction and flips sprite
+        ClimbLadder(); 
+        TouchDangerCheck(); //Checks if player touches layer Hazards or Enemies
         
     }
     //Sets the diffrent movement parameters PERMANENTLY
@@ -96,9 +98,11 @@ public class PlayerMovement : MonoBehaviour
         float originalClimb = climbSpeed;
         float originalMultiplier = speedMultiplier;
         float originalGravity = myRigidBody.gravityScale;
+        
 
         // Apply new values
         SetMovementParams(x, y, climb, multiplier, gravity);
+        regularGravity = gravity;
         Debug.Log("Temporary movement change applied!");
 
         // Wait for duration
@@ -106,6 +110,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Revert to original values
         SetMovementParams(originalX, originalY, originalClimb, originalMultiplier, originalGravity);
+        regularGravity = originalGravity;
         Debug.Log("Movement reverted to original values.");
     }
 
@@ -169,18 +174,21 @@ public class PlayerMovement : MonoBehaviour
     }
     void ClimbLadder()
     {
-        float regularGravity = myRigidBody.gravityScale;
+        
         if(!myColliderCapsule.IsTouchingLayers(LayerMask.GetMask("Climb")))
         {
             myRigidBody.gravityScale = regularGravity;
             animator.SetBool("isClimbing",false);
             return;
         }
-        Vector2 playerVelocity = new Vector2 (myRigidBody.linearVelocity.x,moveInput.y * climbSpeed * speedMultiplier);
-        myRigidBody.linearVelocity = playerVelocity;
+        else
+        {
+            Vector2 playerVelocity = new Vector2 (myRigidBody.linearVelocity.x,moveInput.y * climbSpeed * speedMultiplier);
+            myRigidBody.linearVelocity = playerVelocity;
 
-        animator.SetBool("isClimbing",true);
-        myRigidBody.gravityScale = 0f;
+            animator.SetBool("isClimbing",true);
+            myRigidBody.gravityScale = 0f;
+        }
         
     }
 }

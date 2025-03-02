@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Slowzone : MonoBehaviour
 {
+    bool hasTriggered = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,9 +16,19 @@ public class Slowzone : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(hasTriggered){return;}
+        if (collision.CompareTag("Player"))
         {
-            StartCoroutine(FindAnyObjectByType<PlayerMovement>().TemporaryMovementChange(gravity: 0,duration:3));
+            hasTriggered = true;
+            PlayerMovement player = FindAnyObjectByType<PlayerMovement>();
+
+            if (player != null)
+            {
+                // Run the coroutine on the Player object
+                player.StartCoroutine(player.TemporaryMovementChange(gravity: 0, duration: 3));
+            }
+
+            // Destroy this object AFTER starting the coroutine
             Destroy(gameObject);
         }
     }
