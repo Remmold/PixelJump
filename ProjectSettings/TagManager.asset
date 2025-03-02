@@ -45,6 +45,9 @@ TagManager:
   - name: Background
     uniqueID: 399553951
     locked: 0
+  - name: Background2
+    uniqueID: 3167843767
+    locked: 0
   - name: Poison
     uniqueID: 244188721
     locked: 0
@@ -59,6 +62,9 @@ TagManager:
     locked: 0
   - name: Enemies
     uniqueID: 2140532451
+    locked: 0
+  - name: Foreground
+    uniqueID: 517685075
     locked: 0
   m_RenderingLayers:
   - Default

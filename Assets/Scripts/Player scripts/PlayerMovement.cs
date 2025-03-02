@@ -31,13 +31,7 @@ public class PlayerMovement : MonoBehaviour
     #region  Special Effects Vectors
     [SerializeField] Vector2 deathKick = new Vector2 (3f,8f); // Happens when player dies
     #endregion
-
-    #region  Gun Related Variables
-
-    //These are leftover remnants of the tutorial game doesnt fit actual project and will be removes but kept for disecting the systems for learning
-    [SerializeField] GameObject bullet;
-    [SerializeField] Transform gun;
-    #endregion
+    
     #region Colliders Body and Animation
     Collider2D myColliderCapsule ;
     Collider2D myColliderFeet;
@@ -128,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(value.isPressed)
         {
-            Instantiate(bullet, gun.position,transform.rotation);
+            //This happens when pressing left mb
 
         }
     }
