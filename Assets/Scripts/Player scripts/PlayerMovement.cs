@@ -137,6 +137,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(value.isPressed && myColliderFeet.IsTouchingLayers(LayerMask.GetMask("Ground","Climb","Bouncing")))
         {
+            //animator.SetBool("isJumping",true);
             myRigidBody.linearVelocity += new Vector2(0f,Yspeed);
         }
     }
