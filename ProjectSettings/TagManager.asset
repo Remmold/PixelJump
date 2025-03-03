@@ -54,6 +54,9 @@ TagManager:
   - name: Platforms
     uniqueID: 644081433
     locked: 0
+  - name: Platform override
+    uniqueID: 1373922029
+    locked: 0
   - name: player
     uniqueID: 4027680447
     locked: 0
