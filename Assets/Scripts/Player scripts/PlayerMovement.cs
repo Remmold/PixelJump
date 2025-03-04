@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml.Schema;
 using Unity.Collections;
 using Unity.VisualScripting;
+using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -185,5 +186,9 @@ public class PlayerMovement : MonoBehaviour
             myRigidBody.gravityScale = 0f;
         }
         
+    }
+    public void Bounce(float height)
+    {
+        myRigidBody.linearVelocity = new Vector2 (myRigidBody.linearVelocityX,height);
     }
 }
