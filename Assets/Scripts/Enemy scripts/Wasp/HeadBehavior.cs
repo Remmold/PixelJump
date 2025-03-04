@@ -11,6 +11,7 @@ public class HeadBehavior : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
+            FindAnyObjectByType<PlayerMovement>().Bounce(10);
             StartCoroutine(GetComponentInParent<WaspMovement>().Die());
         }
     }

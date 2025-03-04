@@ -23,7 +23,7 @@ public class WaspMovement : MonoBehaviour
 
     public void Flip()
     {
-        spriteRenderer.flipX = !spriteRenderer.flipX; // Toggle sprite direction
+        transform.localScale = new Vector2(-transform.localScale.x,transform.localScale.y);
     }
 
     private void Start()
@@ -52,12 +52,13 @@ public class WaspMovement : MonoBehaviour
 
     public IEnumerator Die()
     {
+        
         GetComponent<Collider2D>().enabled = false;
         foreach(Collider2D col in colliders)
         {
             col.enabled = false;
         }
-        yield return new WaitForSecondsRealtime(0.05f);
+        
         animator.SetBool("isDead",true);
         yield return new WaitForSecondsRealtime(2f);
         
