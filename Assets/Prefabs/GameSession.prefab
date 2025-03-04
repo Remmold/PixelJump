@@ -50,7 +50,6 @@ MonoBehaviour:
   playerScore: 0
   livesText: {fileID: 7580096169674330595}
   scoreText: {fileID: 539095195585210387}
-  timepowerPercentage: 0
   speedMultiplier: 1
 --- !u!82 &8296934267155285111
 AudioSource:
@@ -62,8 +61,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 3683bee935c9ef34abd039e4027c349f, type: 3}
-  m_Resource: {fileID: 8300000, guid: 3683bee935c9ef34abd039e4027c349f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 669d80714bbd93e418fde8e5f5d49039, type: 3}
+  m_Resource: {fileID: 8300000, guid: 669d80714bbd93e418fde8e5f5d49039, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.017
   m_Pitch: 1
