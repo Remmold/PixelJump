@@ -22,12 +22,10 @@ public class GameSession : MonoBehaviour
     float currentTimepower ;
     int timepowerPercentage;
 
-    AudioSource audioSource;
     // Realise this shouldnt be public but just testing some stuff with audio and playermovement
     public float speedMultiplier = 0.95f;
     void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         playerLives =5;
 
         
@@ -55,7 +53,6 @@ public class GameSession : MonoBehaviour
         if(playerLives > 1)
         { 
             speedMultiplier -= 0.05f;
-            audioSource.pitch = speedMultiplier;
             TakeLife();
             livesText.text = playerLives.ToString();
         }
@@ -81,9 +78,7 @@ public class GameSession : MonoBehaviour
     }
     public void ChangeSpeedMultiplier(float amount)
     {
-        speedMultiplier += amount;
-        audioSource.pitch = speedMultiplier;
-        
+        speedMultiplier += amount;  
     }
 
 
@@ -111,8 +106,6 @@ public class GameSession : MonoBehaviour
     {
         speedMultiplier += amount;
         if(speedMultiplier >1.1) {speedMultiplier = 1.1f;}
-        audioSource.pitch = speedMultiplier;
-        
     }
 
 
