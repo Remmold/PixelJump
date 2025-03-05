@@ -80,13 +80,21 @@ public class GameSession : MonoBehaviour
     {
         speedMultiplier += amount;  
     }
-
-
-
     IEnumerator LoadSameLevel()
     {
-        yield  return new WaitForSecondsRealtime(2);
+        yield return new WaitForSecondsRealtime(2);
+        
+        // Save the current checkpoint before reloading
+        Transform checkpoint = FindAnyObjectByType<Checkpoint_Handler>()?.GetStartingLocation();
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
+        yield return null; // Wait one frame to ensure scene loads before applying position
+
+        if (checkpoint != null)
+        {
+            FindAnyObjectByType<PlayerMovement>()?.SetStartingLocation(checkpoint);
+        }
     }
 
 
@@ -106,31 +114,6 @@ public class GameSession : MonoBehaviour
     {
         speedMultiplier += amount;
         if(speedMultiplier >1.1) {speedMultiplier = 1.1f;}
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    //TIMEPOWER AREA
-    public int GetTimepowerPercentage()
-    {
-        return Mathf.Clamp(Mathf.RoundToInt((currentTimepower / maxTimepower) * 100), 1, 100);
-    }
-    private void UpdateTimeSliders()
-    {
-        int percentage = GetTimepowerPercentage();
-        
-        foreach (Slider slider in timeSliders)
-        {
-            if (slider != null)
-            {
-                slider.value = percentage;
-            }
-        }
     }
 
 }
