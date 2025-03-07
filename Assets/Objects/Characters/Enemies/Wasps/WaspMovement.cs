@@ -11,11 +11,15 @@ public class WaspMovement : MonoBehaviour
     private Vector2 startPos; // Starting position
     private Vector2 target; // Current target position
     private Animator animator;
+    private Rigidbody2D myRigidBody;
+    private bool isDead = false;
 
     private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
+        
+        myRigidBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         colliders = GetComponentsInChildren<Collider2D>();
         animator = GetComponent<Animator>();
@@ -28,13 +32,16 @@ public class WaspMovement : MonoBehaviour
 
     private void Start()
     {
-        startPos = transform.position; // Save start position
+        if(!isDead)
+        {
+            startPos = transform.position; // Save start position
 
-        // Set the first target position based on direction
-        if (patrolHorizontally)
-            target = startPos + new Vector2(patrolDistance, 0); // Move right first
-        else
-            target = startPos + new Vector2(0, patrolDistance); // Move up first
+            // Set the first target position based on direction
+            if (patrolHorizontally)
+                target = startPos + new Vector2(patrolDistance, 0); // Move right first
+            else
+                target = startPos + new Vector2(0, patrolDistance); // Move up first
+        }
     }
 
     private void Update()
@@ -58,6 +65,7 @@ public class WaspMovement : MonoBehaviour
         {
             col.enabled = false;
         }
+        myRigidBody.gravityScale = 0.5f;
         
         animator.SetBool("isDead",true);
         yield return new WaitForSecondsRealtime(2f);
