@@ -1,4 +1,6 @@
+#if UNITY_EDITOR
 using UnityEditor.PackageManager;
+#endif
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
