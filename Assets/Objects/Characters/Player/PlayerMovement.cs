@@ -32,6 +32,9 @@ public class PlayerMovement : MonoBehaviour
     private bool isAlive = true;
     #endregion
 
+    // STUPID STUFF THAT SHOULD BE REMOVED BUT I CANT DEAL WITH IT THIS SECONDS
+    PauseMenu pauseMenu;
+
     private void Start()
     {
         // Get the checkpoint system and ensure correct spawning position
@@ -47,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         myColliderCapsule = GetComponent<Collider2D>();
         myColliderFeet = GetComponent<BoxCollider2D>();
+        pauseMenu = FindAnyObjectByType<PauseMenu>();
 
         // Set initial movement parameters
         regularGravity = GRAVITYBASE;
@@ -113,12 +117,15 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Input Methods
+    private void OnPause()
+    {
+        pauseMenu.TogglePause();
+    }
     private void OnMove(InputValue value)
     {
         if (!isAlive) return;
         moveInput = value.Get<Vector2>();
     }
-
     private void OnJump(InputValue value)
     {
         if (value.isPressed && myColliderFeet.IsTouchingLayers(LayerMask.GetMask("Ground", "Climb", "Bouncing")))
