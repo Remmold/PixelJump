@@ -70,7 +70,7 @@ public class WaspMovement : MonoBehaviour
         myRigidBody.gravityScale = 0.5f;
         
         animator.SetBool("isDead",true);
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSeconds(2f);
         
         Destroy(gameObject);
     }

@@ -25,7 +25,7 @@ public class Exitscript : MonoBehaviour
     }
     IEnumerator LoadNextLevel()
     {
-        yield return new WaitForSecondsRealtime(levelLoadDelay);
+        yield return new WaitForSeconds(levelLoadDelay);
         if (nextLevel == SceneManager.sceneCountInBuildSettings)
         {
             nextLevel = 0;

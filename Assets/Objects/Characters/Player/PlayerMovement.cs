@@ -33,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     // STUPID STUFF THAT SHOULD BE REMOVED BUT I CANT DEAL WITH IT THIS SECONDS
-    PauseMenu pauseMenu;
+    [SerializeField] PauseMenu pauseMenu;
 
     private void Start()
     {
@@ -50,8 +50,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         myColliderCapsule = GetComponent<Collider2D>();
         myColliderFeet = GetComponent<BoxCollider2D>();
-        pauseMenu = FindAnyObjectByType<PauseMenu>();
-
+            
         // Set initial movement parameters
         regularGravity = GRAVITYBASE;
         SetMovementParams();
@@ -79,6 +78,13 @@ public class PlayerMovement : MonoBehaviour
         isAlive = true;
         animator.SetBool("isDead", false);
         myRigidBody.linearVelocity = Vector2.zero;
+            // Ensure pauseMenu is reinitialized after respawn
+        pauseMenu = FindAnyObjectByType<PauseMenu>();
+
+        if (pauseMenu == null)
+        {
+            Debug.LogError("❌ PauseMenu missing after respawn!");
+        }
     }
 
     #region Movement Methods
@@ -119,8 +125,16 @@ public class PlayerMovement : MonoBehaviour
     #region Input Methods
     private void OnPause()
     {
-        pauseMenu.TogglePause();
+        if (PauseMenu.Instance != null)
+        {
+            PauseMenu.Instance.TogglePause();
+        }
+        else
+        {
+            Debug.LogError("❌ PauseMenu instance is missing! Make sure it's in the scene.");
+        }
     }
+
     private void OnMove(InputValue value)
     {
         if (!isAlive) return;
@@ -175,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
         regularGravity = gravity;
         Debug.Log("Temporary movement change applied!");
 
-        yield return new WaitForSecondsRealtime(duration);
+        yield return new WaitForSeconds(duration);
 
         SetMovementParams(originalX, originalY, originalClimb, originalMultiplier, originalGravity);
         regularGravity = originalGravity;

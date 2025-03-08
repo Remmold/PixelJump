@@ -67262,7 +67262,7 @@ GameObject:
   - component: {fileID: 813374362}
   - component: {fileID: 813374363}
   m_Layer: 0
-  m_Name: PauseManager
+  m_Name: PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67277,11 +67277,11 @@ Transform:
   m_GameObject: {fileID: 813374361}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 177.98956, y: -284.1253, z: -6.121542}
+  m_LocalPosition: {x: -302.0794, y: -173.89893, z: -6.121542}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1129257427}
+  m_Father: {fileID: 1216028992}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &813374363
 MonoBehaviour:
@@ -67931,10 +67931,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 439704518}
   - {fileID: 574424872}
+  - {fileID: 439704518}
   - {fileID: 418079242}
-  - {fileID: 813374362}
   m_Father: {fileID: 1216028992}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -68986,7 +68985,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Quit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -71451,7 +71450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Resume
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -71648,51 +71647,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6972395710513258438, guid: f3644e521ea18614bbbf7d5f73cca919, type: 3}
   m_PrefabInstance: {fileID: 1851293538}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1639960611
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1639960613}
-  - component: {fileID: 1639960612}
-  m_Layer: 0
-  m_Name: UIInputManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1639960612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639960611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95c9082ac2c50184fb1868834530fb25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 813374363}
---- !u!4 &1639960613
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1639960611}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 657.9206, y: 366.10107, z: -6.121542}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1645818161 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8209936684963860052, guid: 1e7327f5bf9490a499ddec509bdb7ab7, type: 3}
@@ -72403,7 +72357,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Main Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -72713,7 +72667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5610612114383940059, guid: d6b82259bde28954a99f1eb9d13d526b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.69
+      value: -0.69000006
       objectReference: {fileID: 0}
     - target: {fileID: 5610612114383940059, guid: d6b82259bde28954a99f1eb9d13d526b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -72747,6 +72701,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5991944448973339301, guid: d6b82259bde28954a99f1eb9d13d526b, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 813374363}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -72877,9 +72835,16 @@ PrefabInstance:
       propertyPath: background
       value: 
       objectReference: {fileID: 676447798}
+    - target: {fileID: 3689095758904363430, guid: 9d8d0052e894642498640514721b3d40, type: 3}
+      propertyPath: m_Name
+      value: Points Text
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 701700649804468102, guid: 9d8d0052e894642498640514721b3d40, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 813374362}
     - targetCorrespondingSourceObject: {fileID: 701700649804468102, guid: 9d8d0052e894642498640514721b3d40, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1129257427}
@@ -73172,4 +73137,3 @@ SceneRoots:
   - {fileID: 1061798188}
   - {fileID: 6295606175103219423}
   - {fileID: 1862625635}
-  - {fileID: 1639960613}

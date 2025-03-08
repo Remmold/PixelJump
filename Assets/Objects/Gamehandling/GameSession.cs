@@ -82,7 +82,7 @@ public class GameSession : MonoBehaviour
     }
     IEnumerator LoadSameLevel()
     {
-        yield return new WaitForSecondsRealtime(2);
+        yield return new WaitForSeconds(2);
         
         // Save the current checkpoint before reloading
         Transform checkpoint = FindAnyObjectByType<Checkpoint_Handler>()?.GetStartingLocation();
@@ -100,7 +100,7 @@ public class GameSession : MonoBehaviour
 
     IEnumerator ResetGameSession()
     {
-        yield  return new WaitForSecondsRealtime(2);
+        yield  return new WaitForSeconds(2);
         SceneManager.LoadScene(0);
         Destroy(gameObject);
         FindAnyObjectByType<ScenePersist>().ResetPersistance();
