@@ -76488,6 +76488,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2619371106591949807, guid: 9962409e5fa4d434cb5fc3e96c8f3bd5, type: 3}
+      propertyPath: m_Name
+      value: Checkpoint
+      objectReference: {fileID: 0}
     - target: {fileID: 5894143798052343856, guid: 9962409e5fa4d434cb5fc3e96c8f3bd5, type: 3}
       propertyPath: m_Name
       value: Scene Persist
