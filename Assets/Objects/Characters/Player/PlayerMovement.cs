@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private float climbSpeed;
     private float regularGravity;
     private float speedMultiplier;
+    private bool isActive;
 
     // Benchmarks
     private const float XSPEEDBASE = 6f;
@@ -59,10 +60,13 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         if (!isAlive) return;
+        if (FindAnyObjectByType<DialoguePlayer>().GetStatus() == false)
+        {
+            Run();
+            FlipSprite();
+            ClimbLadder();
+        }
 
-        Run();
-        FlipSprite();
-        ClimbLadder();
         TouchDangerCheck();
     }
 
@@ -156,7 +160,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnJump(InputValue value)
     {
-        if (value.isPressed && myColliderFeet.IsTouchingLayers(LayerMask.GetMask("Ground", "Climb", "Bouncing")))
+        if (value.isPressed && myColliderFeet.IsTouchingLayers(LayerMask.GetMask("Ground", "Climb", "Bouncing")) && FindAnyObjectByType<DialoguePlayer>().GetStatus() == false)
         {
             animator.SetBool("isJumping", true);
             myRigidBody.linearVelocity += new Vector2(0f, Yspeed);
