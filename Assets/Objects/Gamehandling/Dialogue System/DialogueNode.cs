@@ -1,13 +1,14 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class DialogueNode : MonoBehaviour
+[System.Serializable]
+public class DialogueNode 
 {
 
-    string dialogueText;
-    string talkerName;
-    bool isLeft;
-    Sprite portrait;
+    public string dialogueText;
+    public string talkerName;
+    public bool isLeft;
+    public Sprite portrait;
     void Start()
     {
         

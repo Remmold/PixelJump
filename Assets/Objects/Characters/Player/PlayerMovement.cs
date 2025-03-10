@@ -138,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
     #region Input Methods
     private void OnPause()
     {
+        
         if (PauseMenu.Instance != null)
         {
             PauseMenu.Instance.TogglePause();
@@ -159,6 +160,12 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isJumping", true);
             myRigidBody.linearVelocity += new Vector2(0f, Yspeed);
+        }
+
+        //Sends signal to dialoguesystem
+        if(FindAnyObjectByType<DialoguePlayer>().GetStatus())
+        {
+            FindAnyObjectByType<DialoguePlayer>().PlayerPressed();
         }
     }
     #endregion
