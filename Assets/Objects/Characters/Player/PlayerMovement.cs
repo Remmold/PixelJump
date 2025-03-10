@@ -74,22 +74,35 @@ public class PlayerMovement : MonoBehaviour
     public void Respawn()
     {
         Checkpoint_Handler checkpointHandler = FindAnyObjectByType<Checkpoint_Handler>();
-        transform.position = checkpointHandler.GetStartingLocation().position;
+        Transform checkpoint = checkpointHandler?.GetStartingLocation();
+        
+        Vector2 spawnPosition = checkpoint != null ? checkpoint.position : Vector2.zero;
+
+        Debug.Log($"✅ Respawning at: {spawnPosition}");
+        
+        // Stop physics first
+        myRigidBody.simulated = false; // Temporarily disable physics
+        transform.position = spawnPosition; // Move player
+        myRigidBody.simulated = true; // Re-enable physics
+
+        //Stop movement
+        moveInput = new Vector2(0,0);
+
+        // Reset position
+        transform.position = spawnPosition;
+        myRigidBody.MovePosition(spawnPosition); // Ensures physics updates
+
+        // Reset state
         isAlive = true;
         animator.SetBool("isDead", false);
-        myRigidBody.linearVelocity = Vector2.zero;
-            // Ensure pauseMenu is reinitialized after respawn
-        pauseMenu = FindAnyObjectByType<PauseMenu>();
-
-        if (pauseMenu == null)
-        {
-            Debug.LogError("❌ PauseMenu missing after respawn!");
-        }
     }
+
+
 
     #region Movement Methods
     private void Run()
     {
+        
         Vector2 playerVelocity = new Vector2(moveInput.x * (Xspeed * speedMultiplier), myRigidBody.linearVelocity.y);
         myRigidBody.linearVelocity = playerVelocity;
 
@@ -144,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (value.isPressed && myColliderFeet.IsTouchingLayers(LayerMask.GetMask("Ground", "Climb", "Bouncing")))
         {
+            animator.SetBool("isJumping", true);
             myRigidBody.linearVelocity += new Vector2(0f, Yspeed);
         }
     }
@@ -160,6 +174,11 @@ public class PlayerMovement : MonoBehaviour
             FindAnyObjectByType<GameSession>().ProcessPlayerDeath();
         }
     }
+    private void OnCollisionEnter2D(Collision2D other) 
+    {
+        animator.SetBool("isJumping", false);
+    }
+  
 
     public void Bounce(float height)
     {

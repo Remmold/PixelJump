@@ -2,19 +2,25 @@ using UnityEngine;
 
 public class ScenePersist : MonoBehaviour
 {
-    void Awake()
-    {
+    private static ScenePersist instance;
 
-        int numScenePersists = FindObjectsByType<ScenePersist>(FindObjectsSortMode.None).Length;
-        if(numScenePersists> 1)
+    private void Awake()
+    {
+        if (instance == null)
         {
-            Destroy(gameObject);
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            Debug.Log("✅ ScenePersist is active and will persist.");
         }
         else
         {
-            DontDestroyOnLoad(gameObject);
+            Debug.LogWarning("⚠ Duplicate ScenePersist detected. Destroying the new one.");
+            Destroy(gameObject);
+            return; // Prevent further execution on the duplicate
         }
     }
+
+
     public void ResetPersistance()
     {
         Destroy(gameObject);

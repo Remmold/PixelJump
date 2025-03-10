@@ -52,7 +52,6 @@ public class GameSession : MonoBehaviour
     {
         if(playerLives > 1)
         { 
-            speedMultiplier -= 0.05f;
             TakeLife();
             livesText.text = playerLives.ToString();
         }
@@ -68,7 +67,7 @@ public class GameSession : MonoBehaviour
         {
             playerLives --;
             
-            StartCoroutine(LoadSameLevel());
+            StartCoroutine(RespawnPlayer());
 
         }
         else
@@ -80,22 +79,24 @@ public class GameSession : MonoBehaviour
     {
         speedMultiplier += amount;  
     }
-    IEnumerator LoadSameLevel()
+    IEnumerator RespawnPlayer()
     {
-        yield return new WaitForSeconds(2);
-        
-        // Save the current checkpoint before reloading
-        Transform checkpoint = FindAnyObjectByType<Checkpoint_Handler>()?.GetStartingLocation();
-        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        
-        yield return null; // Wait one frame to ensure scene loads before applying position
+        yield return new WaitForSeconds(2); // Wait before respawn
 
-        if (checkpoint != null)
+        // Find the player and call their Respawn() method
+        PlayerMovement player = FindAnyObjectByType<PlayerMovement>();
+        if (player != null)
         {
-            FindAnyObjectByType<PlayerMovement>()?.SetStartingLocation(checkpoint);
+            Debug.Log("✅ Respawning player...");
+            player.Respawn(); // Let PlayerMovement handle the respawn logic
+        }
+        else
+        {
+            Debug.LogError("❌ Respawn failed: No player found!");
         }
     }
+
+
 
 
     IEnumerator ResetGameSession()
