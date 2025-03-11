@@ -69,7 +69,12 @@ public class PlayerMovement : MonoBehaviour
 
         TouchDangerCheck();
     }
-
+    public void StopMovement()
+    {
+        moveInput = new Vector2(0,0);
+        myRigidBody.linearVelocity = new Vector2(0,0);
+        animator.SetBool("isRunning",false);
+    }
     public void SetStartingLocation(Transform location)
     {
         transform.position = location.position;
