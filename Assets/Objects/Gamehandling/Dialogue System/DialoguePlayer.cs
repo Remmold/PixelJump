@@ -21,8 +21,7 @@ public class DialoguePlayer : MonoBehaviour
 
     void Start()
     {
-        isActive = true;
-        RunDialogue();
+
     }
 
     void Update()
@@ -34,6 +33,14 @@ public class DialoguePlayer : MonoBehaviour
             RunDialogue(); // Show the next line
         }
     }
+    public void StartDialogue(List<DialogueNode> newNodes)
+    {
+        nodes = newNodes; // Set new dialogue nodes
+        currentIndex = 0; // Reset index
+        isActive = true;
+        RunDialogue(); // Start dialogue
+    }
+
 
     // Update is called once per frame
     public void PlayerPressed()
@@ -69,6 +76,7 @@ public class DialoguePlayer : MonoBehaviour
         {
             rightName.text = node.talkerName;
             rightPortrait.sprite = node.portrait;
+            rightPortrait.rectTransform.localScale = new Vector3(-1, 1, 1); // Flipped
         }
 
         dialogueText.text = node.dialogueText;
