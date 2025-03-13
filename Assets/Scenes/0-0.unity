@@ -74110,6 +74110,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red_Wasp (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5803880603007549777, guid: f3644e521ea18614bbbf7d5f73cca919, type: 3}
+      propertyPath: m_Mass
+      value: 999
+      objectReference: {fileID: 0}
     - target: {fileID: 6972395710513258438, guid: f3644e521ea18614bbbf7d5f73cca919, type: 3}
       propertyPath: m_LocalPosition.x
       value: -560.4089
@@ -75102,6 +75106,14 @@ PrefabInstance:
       propertyPath: background
       value: 
       objectReference: {fileID: 676447798}
+    - target: {fileID: 3381996725272823271, guid: 9d8d0052e894642498640514721b3d40, type: 3}
+      propertyPath: transitionEndTime
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 3381996725272823271, guid: 9d8d0052e894642498640514721b3d40, type: 3}
+      propertyPath: transitionStartTime
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3689095758904363430, guid: 9d8d0052e894642498640514721b3d40, type: 3}
       propertyPath: m_Name
       value: Points Text
@@ -75114,6 +75126,14 @@ PrefabInstance:
       propertyPath: m_RenderMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8965055858242665950, guid: 9d8d0052e894642498640514721b3d40, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 9d316cc8c02b8b648990d428c5a3657b, type: 3}
+    - target: {fileID: 8965055858242665950, guid: 9d8d0052e894642498640514721b3d40, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9d316cc8c02b8b648990d428c5a3657b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -75249,6 +75269,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wasp
       objectReference: {fileID: 0}
+    - target: {fileID: 4225347993322137721, guid: 16b2e297a9850284f9ab15c18340c721, type: 3}
+      propertyPath: m_Mass
+      value: 99
+      objectReference: {fileID: 0}
     - target: {fileID: 4579478260929243749, guid: 16b2e297a9850284f9ab15c18340c721, type: 3}
       propertyPath: m_LocalPosition.x
       value: -645.8206
@@ -75321,6 +75345,10 @@ PrefabInstance:
     - target: {fileID: 4996407904630656630, guid: f3644e521ea18614bbbf7d5f73cca919, type: 3}
       propertyPath: m_Offset.y
       value: -0.051523343
+      objectReference: {fileID: 0}
+    - target: {fileID: 5803880603007549777, guid: f3644e521ea18614bbbf7d5f73cca919, type: 3}
+      propertyPath: m_Mass
+      value: 999
       objectReference: {fileID: 0}
     - target: {fileID: 6972395710513258438, guid: f3644e521ea18614bbbf7d5f73cca919, type: 3}
       propertyPath: m_LocalPosition.x

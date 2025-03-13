@@ -54,6 +54,7 @@ public class ChickenBehaviour : MonoBehaviour
         if(collision.CompareTag("Player"))
         {
             keepMoving = false;
+            StopAllCoroutines();
             myRigidBody.transform.localScale = new Vector3(-1,1,1);
             myRigidBody.linearVelocity = new Vector2(10,3);
             StartCoroutine(destroySelfAfter(3));
