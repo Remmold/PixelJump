@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 126972939}
   - component: {fileID: 126972938}
   - component: {fileID: 126972943}
+  - component: {fileID: 126972944}
   m_Layer: 0
   m_Name: Chicken
   m_TagString: Untagged
@@ -160,7 +161,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -171,7 +172,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 2
+  m_Constraints: 0
 --- !u!114 &126972939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,13 +307,39 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0.07027674, y: -0.12725711}
   m_Size: {x: 0.53555393, y: 0.65711236}
   m_Direction: 0
+--- !u!114 &126972944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126972937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4b988716978fb4ab7df40ee97d4c98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyOnTrigger: 0
+  dialogueNodes:
+  - dialogueText: Eeeeeek!!!!!!
+    talkerName: Chicken
+    isLeft: 0
+    portrait: {fileID: 21300000, guid: b9dc99f49898b644daab63b90806624d, type: 3}
+  - dialogueText: Ohh no!
+    talkerName: ???
+    isLeft: 1
+    portrait: {fileID: 21300000, guid: df43eeee772cdc34eb8bf6bc1f437606, type: 3}
+  - dialogueText: My friend ran away! i better go see where he went
+    talkerName: ???
+    isLeft: 1
+    portrait: {fileID: 21300000, guid: df43eeee772cdc34eb8bf6bc1f437606, type: 3}
 --- !u!1 &160871651
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +352,7 @@ GameObject:
   - component: {fileID: 160871654}
   - component: {fileID: 160871653}
   m_Layer: 0
-  m_Name: '1: Chicken Runs Away'
+  m_Name: 1:See chicken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -358,6 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4b988716978fb4ab7df40ee97d4c98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyOnTrigger: 0
   dialogueNodes:
   - dialogueText: Ohh my favorite friend in the whole world mr chicken
     talkerName: ???

@@ -6,6 +6,7 @@ public class ChickenBehaviour : MonoBehaviour
     Rigidbody2D myRigidBody;
     Animator animator;
     float moveSpeed = 2;
+    bool keepMoving = true;
 
     void Start()
     {
@@ -41,16 +42,24 @@ public class ChickenBehaviour : MonoBehaviour
 
     IEnumerator MoveAndPeck()
     {
-        while (true) // Keeps the chicken moving forever
+        while (keepMoving) // Keeps the chicken moving forever
         {
             yield return StartCoroutine(Move(1)); // ✅ Move first
             yield return StartCoroutine(Peck(1)); // ✅ Then peck
             Flip(); // ✅ Flip direction AFTER both actions complete
         }
     }
-
-    void Update()
+    void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if(collision.CompareTag("Player"))
+        {
+            keepMoving = false;
+            myRigidBody.transform.localScale = new Vector3(-1,1,1);
+            myRigidBody.linearVelocity = new Vector2(10,3);
+        }
     }
+
+        
+    
+
 }
