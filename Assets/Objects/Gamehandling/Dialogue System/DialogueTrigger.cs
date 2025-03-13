@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
+    [SerializeField] bool destroyOnTrigger;
     [SerializeField] private List<DialogueNode> dialogueNodes; // Handcrafted per trigger
     private bool hasTriggered = false; // Prevents multiple activations
 
@@ -19,7 +20,7 @@ public class DialogueTrigger : MonoBehaviour
                 dialoguePlayer.StartDialogue(dialogueNodes); // Pass nodes and start dialogue
             }
 
-            gameObject.SetActive(false); // Disable trigger after use
+            gameObject.SetActive(!destroyOnTrigger); // Disable trigger after use
         }
     }
 }
