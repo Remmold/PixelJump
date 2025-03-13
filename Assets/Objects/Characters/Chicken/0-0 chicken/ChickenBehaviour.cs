@@ -56,7 +56,14 @@ public class ChickenBehaviour : MonoBehaviour
             keepMoving = false;
             myRigidBody.transform.localScale = new Vector3(-1,1,1);
             myRigidBody.linearVelocity = new Vector2(10,3);
+            StartCoroutine(destroySelfAfter(3));
+            
         }
+    }
+    IEnumerator destroySelfAfter(int duration)
+    {
+        yield return new WaitForSeconds(duration);
+        Destroy(gameObject);
     }
 
         
