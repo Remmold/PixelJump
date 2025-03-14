@@ -47,9 +47,14 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        
+        FindAnyObjectByType<ScenePersist>().KillSelf();
+        pauseMenuUI.SetActive(false);
         Debug.Log("🚀 Returning to Main Menu...");
         Time.timeScale = 1f; // Reset time
+        FindAnyObjectByType<MusicVisualSync>().PauseMusic();
         SceneManager.LoadScene("MainMenu"); // Make sure you have a scene named "MainMenu"
+
     }
     public void QuitGame()
     {

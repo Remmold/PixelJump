@@ -15,7 +15,7 @@ public class MusicVisualSync : MonoBehaviour
         originalColor = background.color; // Store the starting color
     }
     private void Update()
-{
+    {
     float currentTime = music.time; // Get the current music time
 
     if (!transitioning && currentTime >= transitionStartTime)
@@ -24,13 +24,18 @@ public class MusicVisualSync : MonoBehaviour
     }
 
     if (transitioning)
-    {
-        float t = Mathf.InverseLerp(transitionStartTime, transitionEndTime, currentTime);
-        music.pitch = 0.95f;
-       
-        background.color = Color.Lerp(originalColor, nightColor, t);
+        {
+            float t = Mathf.InverseLerp(transitionStartTime, transitionEndTime, currentTime);
+            music.pitch = 0.95f;
+        
+            background.color = Color.Lerp(originalColor, nightColor, t);
+        }
     }
-}
+    public void PauseMusic()
+    {
+        music.Pause();
+        
+    }
 
 }
 
