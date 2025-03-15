@@ -5,6 +5,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu Instance { get; private set; }
     public GameObject pauseMenuUI;
+    [SerializeField] private GameObject optionsMenu;
     private bool isPaused = false;
 
     private void Awake()
@@ -23,11 +24,19 @@ public class PauseMenu : MonoBehaviour
 
     public void TogglePause()
     {
+        // If Options Menu is open, close it first instead of unpausing
+        if (optionsMenu.activeSelf)
+        {
+            CloseOptionsMenu(); 
+            return; // Stop here, don't unpause the game
+        }
+
         if (isPaused)
             ResumeGame();
         else
             PauseGame();
     }
+
 
     public void PauseGame()
     {
@@ -47,25 +56,49 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMainMenu()
     {
-        
         FindAnyObjectByType<ScenePersist>().KillSelf();
         pauseMenuUI.SetActive(false);
+        isPaused = false;
         Debug.Log("🚀 Returning to Main Menu...");
-        Time.timeScale = 1f; // Reset time
+        Time.timeScale = 1f;
         FindAnyObjectByType<MusicVisualSync>().PauseMusic();
-        SceneManager.LoadScene("MainMenu"); // Make sure you have a scene named "MainMenu"
-
+        SceneManager.LoadScene("MainMenu");
     }
+
     public void QuitGame()
     {
         Debug.Log("🚀 Quitting Game...");
 
         #if UNITY_EDITOR
-            // If running in Unity Editor, stop play mode
             UnityEditor.EditorApplication.isPlaying = false;
         #else
-            // If running as a built game, quit application
             Application.Quit();
         #endif
     }
+
+    public void OpenOptionsMenu()
+    {
+        Debug.Log("Opening Options Menu..."); // Debugging
+        if (optionsMenu == null)
+        {
+            Debug.LogError("Options Menu is NOT assigned in the inspector!");
+            return;
+        }
+        pauseMenuUI.SetActive(false); // Hide Pause Menu
+        optionsMenu.SetActive(true);  // Show Options Menu
+    }
+
+    public void CloseOptionsMenu()
+    {
+        if (optionsMenu.activeSelf)
+        {
+            optionsMenu.SetActive(false); // Hide Options Menu
+
+            // Ensure Pause Menu is visible if game is still paused
+            if (isPaused)
+                pauseMenuUI.SetActive(true);
+        }
+    }
+
+
 }

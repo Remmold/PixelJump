@@ -26,7 +26,7 @@ public class MusicVisualSync : MonoBehaviour
     if (transitioning)
         {
             float t = Mathf.InverseLerp(transitionStartTime, transitionEndTime, currentTime);
-            music.pitch = 0.95f;
+            music.pitch = 0.85f;
         
             background.color = Color.Lerp(originalColor, nightColor, t);
         }
