@@ -111,13 +111,15 @@ public class PlayerMovement : MonoBehaviour
     #region Movement Methods
     private void Run()
     {
-        
-        Vector2 playerVelocity = new Vector2(moveInput.x * (Xspeed * speedMultiplier), myRigidBody.linearVelocity.y);
-        myRigidBody.linearVelocity = playerVelocity;
+        // Preserve existing Y velocity while adjusting only X velocity
+        Vector2 newVelocity = new Vector2(moveInput.x * (Xspeed * speedMultiplier), myRigidBody.linearVelocityY);
+        myRigidBody.linearVelocity = newVelocity;
 
-        bool playerHasHorizontalSpeed = Mathf.Abs(myRigidBody.linearVelocity.x) > Mathf.Epsilon;
+        // Update animation based on movement
+        bool playerHasHorizontalSpeed = Mathf.Abs(myRigidBody.linearVelocityX) > Mathf.Epsilon;
         animator.SetBool("isRunning", playerHasHorizontalSpeed);
     }
+
 
     private void FlipSprite()
     {
@@ -168,7 +170,8 @@ public class PlayerMovement : MonoBehaviour
         if (value.isPressed && myColliderFeet.IsTouchingLayers(LayerMask.GetMask("Ground", "Climb", "Bouncing")) && FindAnyObjectByType<DialoguePlayer>().GetStatus() == false)
         {
             animator.SetBool("isJumping", true);
-            myRigidBody.linearVelocity += new Vector2(0f, Yspeed);
+            myRigidBody.linearVelocity = new Vector2(myRigidBody.linearVelocity.x, Yspeed);
+
         }
 
         //Sends signal to dialoguesystem

@@ -76917,6 +76917,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2099152738154603761, guid: d6b82259bde28954a99f1eb9d13d526b, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5470533
+      objectReference: {fileID: 0}
+    - target: {fileID: 2099152738154603761, guid: d6b82259bde28954a99f1eb9d13d526b, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.014708549
+      objectReference: {fileID: 0}
     - target: {fileID: 3319707625160091175, guid: d6b82259bde28954a99f1eb9d13d526b, type: 3}
       propertyPath: m_DefaultControlScheme
       value: Keyboard&Mouse
