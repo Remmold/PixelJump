@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1798995690060369141}
   - component: {fileID: 4225347993322137721}
   - component: {fileID: 5817938270128435342}
-  - component: {fileID: 988919473315089195}
+  - component: {fileID: 5676592195813582692}
   m_Layer: 11
   m_Name: Wasp
   m_TagString: Untagged
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2769283478853504126}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.33, y: -1.52, z: 0.19848868}
+  m_LocalPosition: {x: 7.337, y: -1.52, z: 0.19848868}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -156,8 +156,8 @@ MonoBehaviour:
   patrolDistance: 5
   speed: 2.5
   patrolHorizontally: 1
---- !u!58 &988919473315089195
-CircleCollider2D:
+--- !u!70 &5676592195813582692
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -190,8 +190,9 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.010234624, y: -0.06287065}
-  m_Radius: 0.15072957
+  m_Offset: {x: 0.022217255, y: -0.04709879}
+  m_Size: {x: 0.40635934, y: 0.25351903}
+  m_Direction: 1
 --- !u!1 &5021445238000974445
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +261,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.10373402, y: 0.10499257}
+  m_Offset: {x: 0.027310371, y: 0.10054934}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -270,7 +271,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.20731258, y: 0.077430844}
+  m_Size: {x: 0.38504124, y: 0.0863173}
   m_EdgeRadius: 0
 --- !u!114 &8008967955490342438
 MonoBehaviour:
