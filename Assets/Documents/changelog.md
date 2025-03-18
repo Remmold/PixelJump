@@ -1,8 +1,15 @@
 Updates between versions of the game
 -====== Changes since last build ======-
-[ ] Volume control/options
+- User Settings added(mvp)
+- Volume Control added
+- Added a lighting system
+- Sun and Moon lighting up the screen
+- Fixed hitboxes of wasp (easier to jump on)
+
 [ ] Completed level 1
 [ ] Special control mechanic added
+
+
 -====== Ver 0.1 ======-
 - Basic Title Screen
 - Basic Movement Functionality
