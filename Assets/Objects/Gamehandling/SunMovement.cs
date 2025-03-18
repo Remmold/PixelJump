@@ -22,8 +22,8 @@ public class SunMovement : MonoBehaviour
         moonLight.intensity = 0f; // Moon starts completely off
 
         // Ensure lights are placed correctly
-        sunLight.transform.position = cameraTransform.position + new Vector3(0, 5, 5);
-        moonLight.transform.position = cameraTransform.position + new Vector3(0, -5, 5);
+        sunLight.transform.position = cameraTransform.position + new Vector3(0, -100, 5);
+        moonLight.transform.position = cameraTransform.position + new Vector3(0, -100, 5);
     }
 
 
@@ -35,36 +35,39 @@ public class SunMovement : MonoBehaviour
         float cycleProgress = timeElapsed / dayLength; // 0 to 1 across full cycle
         float angle = cycleProgress * 360f; // Full rotation
 
-        // ☀️ Move Sun & Moon around the camera, keeping them within view
-        Vector3 sunPosition = new Vector3(
-        cameraTransform.position.x + Mathf.Cos(Mathf.Deg2Rad * angle) * orbitRadius, 
-        cameraTransform.position.y + Mathf.Sin(Mathf.Deg2Rad * angle) * orbitRadius, 
-        5// ✅ Force the absolute Z-position
+        // 🔽 Lower orbit center
+        float orbitOffsetY = -1.5f; 
+        Vector3 orbitCenter = cameraTransform.position + new Vector3(0, orbitOffsetY, 0);
 
-
-        );
-        Vector3 moonPosition = new Vector3(
-            cameraTransform.position.x - (sunPosition.x - cameraTransform.position.x), 
-            cameraTransform.position.y - (sunPosition.y - cameraTransform.position.y), 
-            -5 // ✅ Force the absolute Z-position
+        // ☀️ Move Sun & Moon smoothly
+        Vector3 sunTargetPos = new Vector3(
+            orbitCenter.x + Mathf.Cos(Mathf.Deg2Rad * angle) * orbitRadius, 
+            orbitCenter.y + Mathf.Sin(Mathf.Deg2Rad * angle) * orbitRadius, 
+            5
         );
 
-        sunLight.transform.position = sunPosition;
-        moonLight.transform.position = moonPosition;
+        Vector3 moonTargetPos = new Vector3(
+            orbitCenter.x - (sunTargetPos.x - orbitCenter.x), 
+            orbitCenter.y - (sunTargetPos.y - orbitCenter.y), 
+            -5
+        );
 
-        // 🌞🌙 Improved Light Transition Logic
-        float t = Mathf.Clamp01((timeElapsed % (dayLength / 2)) / (dayLength / 2)); // Ensure 0-1 range
+        // 🏗 Apply Lerp for smooth movement (speed = 5x per second)
+        float lerpSpeed = 5f;
+        sunLight.transform.position = Vector3.Lerp(sunLight.transform.position, sunTargetPos, Time.deltaTime * lerpSpeed);
+        moonLight.transform.position = Vector3.Lerp(moonLight.transform.position, moonTargetPos, Time.deltaTime * lerpSpeed);
+
+        // 🌞🌙 Light Transition Logic (unchanged)
+        float t = Mathf.Clamp01((timeElapsed % (dayLength / 2)) / (dayLength / 2));
 
         if (timeElapsed < dayLength / 2)
         {
-            // ☀️ **Sunrise → Daytime (Sun brightens), Moon fades out slower**
             sunLight.intensity = minIntensity + (maxSunIntensity - minIntensity) * t;
-            moonLight.intensity = maxMoonIntensity - (maxMoonIntensity - minIntensity) * (t * 0.5f); // Moon fades slower
+            moonLight.intensity = maxMoonIntensity - (maxMoonIntensity - minIntensity) * t; 
         }
         else
         {
-            // 🌙 **Sunset → Nighttime (Sun fades slower), Moon brightens**
-            sunLight.intensity = maxSunIntensity - (maxSunIntensity - minIntensity) * (t * 0.8f); // Sun fades slower
+            sunLight.intensity = maxSunIntensity - (maxSunIntensity - minIntensity) * t; 
             moonLight.intensity = minIntensity + (maxMoonIntensity - minIntensity) * t;
         }
     }
