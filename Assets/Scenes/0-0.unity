@@ -74077,7 +74077,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1562780528}
-  - component: {fileID: 1562780527}
   - component: {fileID: 1562780529}
   m_Layer: 13
   m_Name: Sun
@@ -74086,28 +74085,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1562780527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1562780526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9449a4d4b80b544986df89ca41cc45e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dayLength: 95
-  sunLight: {fileID: 442300554}
-  moonLight: {fileID: 904000384}
-  cameraTransform: {fileID: 1864832208}
-  orbitRadius: 8
-  sunObject: {fileID: 1562780528}
-  moonObject: {fileID: 1763987109}
-  maxSunIntensity: 4
-  maxMoonIntensity: 8
-  minIntensity: 1
 --- !u!4 &1562780528
 Transform:
   m_ObjectHideFlags: 0
@@ -74116,13 +74093,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1562780526}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.991004, w: 0.13383244}
-  m_LocalPosition: {x: -22.039877, y: 10.990563, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.991004, w: 0.13383244}
+  m_LocalPosition: {x: -0.13987732, y: 8.640564, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 442300555}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2826055022730392995}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1562780529
 MonoBehaviour:
@@ -74812,12 +74789,12 @@ Transform:
   m_GameObject: {fileID: 1763987108}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.079878, y: -4.0394363, z: 0}
+  m_LocalPosition: {x: -0.17987823, y: -6.3894362, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 904000383}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2826055022730392995}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1763987110
 MonoBehaviour:
@@ -75636,11 +75613,6 @@ Transform:
   - {fileID: 1811917235}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1864832208 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4769842401304520821, guid: 1e4d999bff3264b4896713fb15769c0e, type: 3}
-  m_PrefabInstance: {fileID: 2826055022730392994}
-  m_PrefabAsset: {fileID: 0}
 --- !u!213 &1885416693
 Sprite:
   m_ObjectHideFlags: 0
@@ -76921,9 +76893,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7327537325888023236, guid: 1e4d999bff3264b4896713fb15769c0e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1562780528}
+    - targetCorrespondingSourceObject: {fileID: 7327537325888023236, guid: 1e4d999bff3264b4896713fb15769c0e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1763987109}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2578031676894663246, guid: 1e4d999bff3264b4896713fb15769c0e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2826055022730392997}
   m_SourcePrefab: {fileID: 100100000, guid: 1e4d999bff3264b4896713fb15769c0e, type: 3}
+--- !u!4 &2826055022730392995 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7327537325888023236, guid: 1e4d999bff3264b4896713fb15769c0e, type: 3}
+  m_PrefabInstance: {fileID: 2826055022730392994}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2826055022730392996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2578031676894663246, guid: 1e4d999bff3264b4896713fb15769c0e, type: 3}
+  m_PrefabInstance: {fileID: 2826055022730392994}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2826055022730392997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2826055022730392996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae3b77080d8a99a4abdd64d32886811b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dayLength: 115
+  sunLight: {fileID: 442300554}
+  moonLight: {fileID: 904000384}
+  sunObject: {fileID: 1562780528}
+  moonObject: {fileID: 1763987109}
+  orbitRadius: 12
+  orbitOffsetY: -7
+  maxSunIntensity: 4
+  maxMoonIntensity: 4
+  minIntensity: 0.1
 --- !u!1001 &4978082255731522791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77242,5 +77255,3 @@ SceneRoots:
   - {fileID: 6295606175103219423}
   - {fileID: 1862625635}
   - {fileID: 126972942}
-  - {fileID: 1562780528}
-  - {fileID: 1763987109}
