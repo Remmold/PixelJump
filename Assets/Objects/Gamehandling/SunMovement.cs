@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal; // Needed for Light2D
 
+using UnityEngine;
+using UnityEngine.Rendering.Universal; // Needed for Light2D
+
 public class SunMovement : MonoBehaviour
 {
     [SerializeField] private float dayLength = 30f; // Full cycle duration in seconds
@@ -8,6 +11,10 @@ public class SunMovement : MonoBehaviour
     [SerializeField] private Light2D moonLight;
     [SerializeField] private Transform cameraTransform; // Reference to camera
     [SerializeField] private float orbitRadius = 3f; // Distance from the camera
+
+    // 🔆 NEW: Sun and Moon Objects
+    [SerializeField] private Transform sunObject;
+    [SerializeField] private Transform moonObject;
 
     // Light Intensities
     [SerializeField] private float maxSunIntensity = 1.0f;
@@ -21,11 +28,13 @@ public class SunMovement : MonoBehaviour
         sunLight.intensity = maxSunIntensity; // Start sun fully bright
         moonLight.intensity = 0f; // Moon starts completely off
 
-        // Ensure lights are placed correctly
+        // Ensure lights & objects are placed correctly
         sunLight.transform.position = cameraTransform.position + new Vector3(0, -100, 5);
         moonLight.transform.position = cameraTransform.position + new Vector3(0, -100, 5);
+        
+        sunObject.position = sunLight.transform.position;
+        moonObject.position = moonLight.transform.position;
     }
-
 
     private void Update()
     {
@@ -33,7 +42,7 @@ public class SunMovement : MonoBehaviour
         if (timeElapsed >= dayLength) timeElapsed = 0f; // Reset cycle
 
         float cycleProgress = timeElapsed / dayLength; // 0 to 1 across full cycle
-        float angle = cycleProgress * 360f; // Full rotation
+        float angle = cycleProgress * 360f - 30f; // Full rotation
 
         // 🔽 Lower orbit center
         float orbitOffsetY = -1.5f; 
@@ -57,19 +66,22 @@ public class SunMovement : MonoBehaviour
         sunLight.transform.position = Vector3.Lerp(sunLight.transform.position, sunTargetPos, Time.deltaTime * lerpSpeed);
         moonLight.transform.position = Vector3.Lerp(moonLight.transform.position, moonTargetPos, Time.deltaTime * lerpSpeed);
 
+        // 🌞🌙 Also move Sun & Moon objects!
+        sunObject.position = Vector3.Lerp(sunObject.position, sunTargetPos, Time.deltaTime * lerpSpeed);
+        moonObject.position = Vector3.Lerp(moonObject.position, moonTargetPos, Time.deltaTime * lerpSpeed);
+
         // 🌞🌙 Light Transition Logic (unchanged)
         float t = Mathf.Clamp01((timeElapsed % (dayLength / 2)) / (dayLength / 2));
 
         if (timeElapsed < dayLength / 2)
         {
             sunLight.intensity = minIntensity + (maxSunIntensity - minIntensity) * t;
-            moonLight.intensity = maxMoonIntensity - (maxMoonIntensity - minIntensity) * t; 
+            moonLight.intensity = 0; 
         }
         else
-        {
-            sunLight.intensity = maxSunIntensity - (maxSunIntensity - minIntensity) * t; 
+        {   
+            sunLight.intensity = 0; 
             moonLight.intensity = minIntensity + (maxMoonIntensity - minIntensity) * t;
         }
     }
-
 }
