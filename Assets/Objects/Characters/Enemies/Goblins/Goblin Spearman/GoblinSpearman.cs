@@ -13,13 +13,12 @@ public class GoblinSpearman : MonoBehaviour
     private Animator animator;
     private Rigidbody2D myRigidBody;
     private bool isDead = false;
-    private CircleCollider2D aggroCircle;
+    private bool isAttacking = false;
 
     private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
-        aggroCircle = GetComponent<CircleCollider2D>();
         myRigidBody = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         colliders = GetComponentsInChildren<Collider2D>();
@@ -42,7 +41,10 @@ public class GoblinSpearman : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        if(!isDead)
+        {
+            Move();
+        }
     }
     private void Move()
     {
@@ -55,6 +57,13 @@ public class GoblinSpearman : MonoBehaviour
             target = (target == startPos) ? startPos + (patrolHorizontally ? new Vector2(patrolDistance, 0) : new Vector2(0, patrolDistance)) : startPos;
             Flip();
         }
+        
+    }
+    private void SetAnimationsFale()
+    {
+        animator.SetBool("isRunning",false);
+        animator.SetBool("isDead",false);
+        animator.SetBool("isAttacking",false);
     }
 
     public IEnumerator Die()
